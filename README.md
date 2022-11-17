@@ -103,6 +103,8 @@ PROJECT(HELLO C CXX) # 指定了工程的名字，并且说明支持语言是 C/
 
 ## 5 静态库和动态库
 
+### 创建
+
 - 动态库 -- libhello.so
   - add_library(hello SHARED hello.cc)
 
@@ -123,3 +125,19 @@ set_target_properties(hello PROPERTIES  OUTPUT_NAME "hello")
 set_target_properties(hello PROPERTIES CLEAN_DIRECT_OUTPUT 1)
 ```
 
+### 使用
+
+```cmake
+# 添加头文件搜索路径
+include_directories(/usr/include/hello)
+# 添加第三方库所在路径
+link_directories(/home/mylibs/libs)
+# 添加第三方库 -- 该库需要在标准的库搜索路径下
+target_link_libraries(main libhello.so)
+```
+
+## 备注
+```bash
+# 编译成debug版本
+cmake -DCMAKE_BUILD_TYPE=debug 
+```

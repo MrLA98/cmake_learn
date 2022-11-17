@@ -99,3 +99,27 @@ PROJECT(HELLO C CXX) # 指定了工程的名字，并且说明支持语言是 C/
 - 外层目录的 CMakeLists.txt
   - 需要写明工程名称
   - 需要添加子目录 -- 源文件所在目录
+
+
+## 5 静态库和动态库
+
+- 动态库 -- libhello.so
+  - add_library(hello SHARED hello.cc)
+
+- 静态库 -- libhello.a
+  - add_library(hello STATIC hello.cc)
+
+- 需要同时生成动态库和静态库时：
+```cmake
+# 1. 两个库变量名不能相同
+add_library(hello_static SHARED hello.cc)
+# 2. 通过该方法来设置输出名字
+set_target_properties(hello_static PROPERTIES OUTPUT_NAME "hello")
+# 3. 特殊设置，防止二次生成出错
+set_target_properties(hello_static PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+
+add_library(hello STATIC hello.cc)
+set_target_properties(hello PROPERTIES  OUTPUT_NAME "hello")
+set_target_properties(hello PROPERTIES CLEAN_DIRECT_OUTPUT 1)
+```
+

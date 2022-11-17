@@ -72,3 +72,30 @@ PROJECT(HELLO C CXX) # 指定了工程的名字，并且说明支持语言是 C/
 - 指令(参数1 参数2;参数3...) 参数之间使用空格或 `;` 分割
 - 指令是大小写无关的 -- 推荐使用大写指令
 - 参数和变量是大小写有关的
+- 注意⚠️：如果参数中有空格，参数应该用 `""` 括住，其余情况加不加引号无所谓
+
+## 3 内部构建与外部构建
+### 内部构建
+在 CMakeLists.txt 目录下执行 `cmake .`
+### 外部构建
+在 CMakeLists.txt 目录下创建 `build` 目录，然后在 build 目录下执行 `cmake ..`
+
+## 4 一个完整的工程
+```bash
+.
+├── CMakeLists.txt
+├── build
+│   ├── Makefile
+│   ├── bin # 可执行文件所在位置
+│   └── ...
+├── build.sh
+├── runhello.sh
+└── src
+    ├── CMakeLists.txt 
+    └── hello.cc
+```
+- 源文件所在目录要有 CMakeLists.txt
+  - 只需要写“添加可执行文件”的部分即可
+- 外层目录的 CMakeLists.txt
+  - 需要写明工程名称
+  - 需要添加子目录 -- 源文件所在目录
